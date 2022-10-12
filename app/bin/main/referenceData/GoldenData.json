@@ -1,0 +1,17 @@
+{
+	"rank": 1,
+	"total_occurrences": 39712,
+	"search_term": "sports",
+	"ssr": {
+		"content_type": "link",
+		"content_id": "0",
+		"content_name": "Sports",
+		"occurrences": 29480
+	},
+	"qsr": {
+		"content_type": "live",
+		"content_id": "4732",
+		"content_name": "FSR-PR",
+		"occurrences": 50
+	}
+}
