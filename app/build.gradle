@@ -20,21 +20,24 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.code.gson:gson:2.9.1'
+    //implementation  'com.google.code.gson:2.9.1'
       // Add these lines for Jackson
     implementation  'com.fasterxml.jackson.core:jackson-core:2.13.1'
     implementation  'com.fasterxml.jackson.core:jackson-annotations:2.13.1'
     implementation  'com.fasterxml.jackson.core:jackson-databind:2.13.1'
     implementation  'com.opencsv:opencsv:5.7.0'
+    
+
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'asvsapp.App'
+    mainClass = 'asvsapp.app'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'asvsapp.App'
+        attributes 'Main-Class': 'asvsapp.app'
         attributes 'Class-Path': sourceSets.main.runtimeClasspath.files.collect { it.getName() }.join ( ' ')
     }
 }
