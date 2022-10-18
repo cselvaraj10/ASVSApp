@@ -10,14 +10,16 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
-public class App {
+public class app {
    
     public static void main(String[] args) {
         System.out.println("Main Class reads the json file");
         
         // create Gson instance
         Gson gson = new Gson();
+        //JsonReader.setLenient(true);
 
     try {
     

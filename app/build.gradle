@@ -29,12 +29,12 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'asvsapp.App'
+    mainClass = 'asvsapp.app'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'asvsapp.App'
+        attributes 'Main-Class': 'asvsapp.app'
         attributes 'Class-Path': sourceSets.main.runtimeClasspath.files.collect { it.getName() }.join ( ' ')
     }
 }
