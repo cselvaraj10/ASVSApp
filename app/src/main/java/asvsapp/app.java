@@ -3,45 +3,137 @@
  */
 package asvsapp;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
 public class app {
-   
+  
+
     public static void main(String[] args) {
-        System.out.println("Main Class reads the json file");
+        //Gson gson = new Gson();
+ 
+        //System.out.println(gson.fromJson("{'id':1,'firstName':'Lokesh','lastName':'Gupta','roles':['ADMIN','MANAGER']}", Employee.class));
+
+        /*
+        try {
+            // create Gson instance
+            Gson gson = new Gson();
         
-        // create Gson instance
-        Gson gson = new Gson();
-        //JsonReader.setLenient(true);
+            Path pathToFile = Paths.get("app\\src\\main\\java\\jsonparser\\Employee.json");
 
-    try {
-    
-        Path pathToFile = Paths.get("app/src/main/resources/referenceData/GoldenData.json");
+            // create a reader
+            Reader reader = Files.newBufferedReader(pathToFile.toAbsolutePath());
 
-        // create a reader
-        Reader reader = Files.newBufferedReader(pathToFile.toAbsolutePath());
-    
-        // convert JSON file to map
-        Map<?, ?> map = gson.fromJson(reader, Map.class);
-    
-        // print map entries
-        for (Map.Entry<?, ?> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + "=" + entry.getValue());
+            //System.out.println(gson.fromJson(reader, Employee.class));
+        
+            // convert JSON file to map
+            Map<?, ?> map = gson.fromJson(reader, Map.class);
+        
+            // print map entries
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                System.out.println(entry.getKey() + "=" + entry.getValue());
+            }
+        
+            // close reader
+            reader.close();
+        
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    
-        // close reader
-        reader.close();
-    
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
+        */
+        
+        BufferedReader reader = null;
+         
+        FileWriter writer = null;
 
+
+        try {
+
+
+    
+            Path pathToInputFile = Paths.get("app/src/main/resources/referenceData/GoldenData.json");
+            String pathToOutputFile = Paths.get("app/src/main/resources/tempOutData/GoldenDataOut.json").toAbsolutePath().toString();
+    
+            //reader = new BufferedReader(new FileReader(pathToFile.toAbsolutePath()));
+
+            reader = Files.newBufferedReader(pathToInputFile, StandardCharsets.UTF_8);
+    
+            StringBuilder jsonStr = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                jsonStr.append(line);
+            }
+
+            replaceAll(jsonStr,"\\\"", "\"");
+            replaceAll(jsonStr,"\"{", "{");
+            replaceAll(jsonStr,"}\"", "}");
+
+            String jsonFormattedString = jsonStr.toString();
+            
+
+            reader.close();
+
+             //Rewriting the input text file with newContent
+             
+             writer = new FileWriter(pathToOutputFile);
+             
+             writer.write(jsonFormattedString);
+
+             writer.close();
+
+
+             pathToInputFile = Paths.get("app/src/main/resources/tempOutData/GoldenDataOut.json");
+
+             reader = Files.newBufferedReader(pathToInputFile, StandardCharsets.UTF_8);
+     
+
+            // create Gson instance
+            Gson gson = new Gson();
+
+           IglooGoldenData[] iglooData = gson.fromJson(reader, IglooGoldenData[].class);
+
+            // close reader
+            reader.close();
+        
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        finally
+        {
+            try
+            {
+                //Closing the resources
+                 
+                reader.close();
+                 
+                writer.close();
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public static void replaceAll(StringBuilder builder, String from, String to) {
+        int index = builder.indexOf(from);
+        while (index != -1) {
+            builder.replace(index, index + from.length(), to);
+            index += to.length(); // Move to the end of the replacement
+            index = builder.indexOf(from, index);
+        }
+    }
 }
