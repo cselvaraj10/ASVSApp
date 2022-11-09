@@ -19,12 +19,21 @@ repositories {
 
 dependencies {
     // This dependency is used by the application.
-    implementation 'com.google.code.gson:gson:2.9.1'
+    //implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'org.json:json:20220924'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
       // Add these lines for Jackson
     implementation  'com.fasterxml.jackson.core:jackson-core:2.13.1'
     implementation  'com.fasterxml.jackson.core:jackson-annotations:2.13.1'
     implementation  'com.fasterxml.jackson.core:jackson-databind:2.13.1'
     implementation  'com.opencsv:opencsv:5.7.0'
+    implementation 'com.amazonaws:aws-java-sdk:1.12.332'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.332'
+    implementation 'com.amazonaws:aws-java-sdk-core:1.12.332'
+    implementation 'com.amazonaws:aws-java-sdk-iam:1.12.332'
+    implementation 'com.amazonaws:aws-java-sdk-ec2:1.12.332'
+
 }
 
 application {
