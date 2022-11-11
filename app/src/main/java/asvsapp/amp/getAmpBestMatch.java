@@ -7,7 +7,6 @@ import java.net.http.HttpResponse;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
-
 public class getAmpBestMatch {
     public static Object iglooData;
     // public static Object ampBMData;
@@ -21,12 +20,10 @@ public class getAmpBestMatch {
         try {
 
             String searchTermEncode = java.net.URLEncoder.encode(search_term, "UTF-8").replace("+", "%20");
-            
 
             uri = new URI(
                     "https://us.api.iheart.com/api/v3/search/combined?keywords=" + searchTermEncode
                             + "&bestMatch=true&track=true&bundle=true&artist=true&station=true&keyword=true&playlist=true&podcast=true");
-
 
             HttpRequest response = HttpRequest.newBuilder(uri)
                     .setHeader("X-Search-Variant-ID", "searchVariantI")
@@ -42,10 +39,6 @@ public class getAmpBestMatch {
             JSONObject bestMatchSection = mainObject.getJSONObject("bestMatch");
 
             ampBestMatchdata ampBMData = new Gson().fromJson(bestMatchSection.toString(), ampBestMatchdata.class);
-
-            // System.out.println(
-            //         ampBMData.name + "\n" + ampBMData.title + "\n" + ampBMData.description + "\n" + ampBMData.contentId
-            //                 + "\n" + ampBMData.id + "\n" + ampBMData.contentType + "\n" + ampBMData.typeName + "\n");
 
             returnObject = ampBMData;
 
