@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import asvsapp.amp.ampBestMatchdata;
 import asvsapp.amp.getAmpBestMatch;
+import asvsapp.csvWrite.csvWriteResults;
 import comparator.iglooAmpCompare;
 
 public class parseIglooData {
@@ -27,6 +28,9 @@ public class parseIglooData {
             reader = Files.newBufferedReader(pathToInputFile, StandardCharsets.UTF_8);
 
             String line;
+
+            csvWriteResults.csvWriterOpenAgain();;
+            
             while ((line = reader.readLine()) != null) {
                 try {
                     StringBuilder jsonStr = new StringBuilder(line);
@@ -48,6 +52,7 @@ public class parseIglooData {
 
                     // Function call passing 2 objects for compare
                     iglooAmpCompare.compareData(iglooData, iglooDataSearchTerm);
+
 
                 } catch (Exception err) {
                     System.out.print(jsonFormattedString);

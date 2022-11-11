@@ -3,17 +3,18 @@
  */
 package asvsapp;
 
-import java.io.IOException;
+import asvsapp.csvWrite.csvWriteResults;
 
 public class app {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-         asvsapp.igloo.parseIglooData.praseJsonLine();
-         asvsapp.csvWrite.csvWriteResults.writeResultData();
-        
+        csvWriteResults.writeResultDataHeader();
+        csvWriteResults.csvWriterClose();
 
-        //  asvsapp.amp.getAmpBestMatch.getJsonBestMatch(null);
+        asvsapp.igloo.parseIglooData.praseJsonLine();
+
+        csvWriteResults.csvWriterClose();
 
     }
 }
