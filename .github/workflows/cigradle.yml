@@ -12,6 +12,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch: 
 
 permissions:
   contents: read
@@ -28,14 +29,24 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
-      run: ./gradlew build 
+#     - name: Build with Gradle
+#       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+#       with:
+#         arguments: build
+#       run: ./gradlew build 
       
-    - name: Run Jar
-      run: java -jar app/build/libs/app.jar
+#     - name: Run Jar
+#       run: java -jar app/build/libs/app.jar
+      
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::219619990026:role/ihr-algolia-validation
+        aws-region: us-east-1
+        
+    - name: Download Igloo Json from S3 bucket
+      run: |
+        aws s3 cp s3://ihr-de-stg-prod/search_golden_dataset/top_search_terms/dt=2022-11-14/000.json app/src/main/resources/InputData/000.json 
       
       
         
