@@ -52,7 +52,7 @@ jobs:
               
     - name: Download Igloo Json Data File from S3 bucket1
       run: |
-        aws s3 ls s3://ihr-de-stg-prod/search_golden_dataset/top_search_terms/
+        aws s3 ls s3://ihr-de-stg-prod/search_golden_dataset/top_search_terms/dt=2022-11-14/
       
       
         
