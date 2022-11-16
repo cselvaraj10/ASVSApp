@@ -29,6 +29,7 @@ public class csvWriteResults {
                     "QSR PASS/FAIL" };
 
             csvWrite.writeNext(entries);
+            csvWrite.flush();
         } catch (IOException e) {
             System.out.println("CSV Write Failed!! ");
             e.printStackTrace();
@@ -40,13 +41,19 @@ public class csvWriteResults {
 
         String[] results = { Integer.toString(result.Igloo_Rank), Integer.toString(result.Igloo_TotalOccurances),
                 result.Igloo_SearchTerm,
-                result.Igloo_SSRContentName, Integer.toString(result.Igloo_SSRContentId), result.Igloo_SSRContentType,
-                result.Igloo_QSRContentName, Integer.toString(result.Igloo_QSRContentId), result.Igloo_QSRContentType,
-                result.Amp_ContentName, Integer.toString(result.Amp_ContentId), result.Amp_ContentType,
+                result.Igloo_SSRContentName, result.Igloo_SSRContentId, result.Igloo_SSRContentType,
+                result.Igloo_QSRContentName, result.Igloo_QSRContentId, result.Igloo_QSRContentType,
+                result.Amp_ContentName,result.Amp_ContentId, result.Amp_ContentType,
                 result.SSR_Result,
                 result.QSR_Result };
 
         csvWrite.writeNext(results);
+        try {
+            csvWrite.flush();
+        } catch (IOException e) {
+            System.out.println("CSV Write Append Failed!! ");
+            e.printStackTrace();
+        }
 
     }
 

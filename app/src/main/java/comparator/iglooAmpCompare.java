@@ -6,8 +6,8 @@ import asvsapp.igloo.iglooGoldenData;
 
 public class iglooAmpCompare {
 
-    static String SSR = null;
-    static String QSR = null;
+    static String SSR;
+    static String QSR;
 
     public static void compareData(iglooGoldenData igloo, ampBestMatchdata amp) {
 
@@ -41,13 +41,13 @@ public class iglooAmpCompare {
                 }
             }
 
-            if (amp.contentId != 0 || amp.id != 0) {
-                if (igloo.ssr.content_id == amp.contentId) {
+            if (amp.contentId != null || amp.id != null) {
+                if (igloo.ssr.content_id.equals(amp.contentId)) {
                     processedDataResult.Amp_ContentId = amp.contentId;
                 } else if (igloo.ssr.content_id == amp.id) {
                     processedDataResult.Amp_ContentId = amp.id;
                 } else {
-                    processedDataResult.Amp_ContentId = 0;
+                    processedDataResult.Amp_ContentId = null;
                 }
             }
 
@@ -63,7 +63,7 @@ public class iglooAmpCompare {
 
             if (((igloo.ssr.content_name.equals(amp.name) || igloo.ssr.content_name.equals(amp.title)
                     || igloo.ssr.content_name.equals(amp.description))
-                    && (igloo.ssr.content_id == amp.contentId || igloo.ssr.content_id == amp.id))
+                    && (igloo.ssr.content_id.equals(amp.contentId) || igloo.ssr.content_id == amp.id))
                     && (igloo.ssr.content_type.equals(amp.contentType)
                             || igloo.ssr.content_type.equalsIgnoreCase(amp.typeName))) {
 
@@ -79,7 +79,7 @@ public class iglooAmpCompare {
 
             if (((igloo.qsr.content_name.equals(amp.name) || igloo.qsr.content_name.equals(amp.title)
                     || igloo.qsr.content_name.equals(amp.description))
-                    && (igloo.qsr.content_id == amp.contentId || igloo.qsr.content_id == amp.id))
+                    && (igloo.qsr.content_id.equals(amp.contentId) || igloo.qsr.content_id == amp.id))
                     && (igloo.qsr.content_type.equals(amp.contentType)
                             || igloo.qsr.content_type.equalsIgnoreCase(amp.typeName))) {
 

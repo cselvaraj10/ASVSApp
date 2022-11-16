@@ -29,7 +29,7 @@ public class parseIglooData {
 
             String line;
 
-            csvWriteResults.csvWriterOpenAgain();;
+            //csvWriteResults.csvWriterOpenAgain();;
             
             while ((line = reader.readLine()) != null) {
                 try {
@@ -42,9 +42,18 @@ public class parseIglooData {
 
                     replaceAll(jsonStr, "\"[", "{");
 
-                    replaceAll(jsonStr, "]\"", "}");
+                    replaceAll(jsonStr, "]\",", "||\","); 
+
+                    replaceAll(jsonStr, "]\"", "}"); 
 
                     jsonFormattedString = jsonStr.toString();
+
+                    try {
+                        iglooGoldenData iglooData = new Gson().fromJson(jsonFormattedString, iglooGoldenData.class);
+                    }
+                    catch (Exception err) {
+                        System.out.println(err);
+                    }
 
                     iglooGoldenData iglooData = new Gson().fromJson(jsonFormattedString, iglooGoldenData.class);
 
