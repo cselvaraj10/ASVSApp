@@ -29,6 +29,23 @@ public class iglooAmpCompare {
             processedDataResult.Igloo_QSRContentId = igloo.qsr.content_id;
             processedDataResult.Igloo_QSRContentType = igloo.qsr.content_type;
 
+            if (amp.contentType != null){
+
+                if(amp.contentType.equals("custom")){
+                    amp.contentType = "artist";
+                }
+                else if(amp.contentType.equals("talk")){
+                    amp.contentType = "podcast";
+                }
+                else if(amp.contentType.equals("playlist")){
+                    amp.contentType = "curated_playlist";
+                }
+                else if(amp.contentType.equals("STATION")){
+                    amp.contentType = "LIVE";
+                }
+
+            }
+
             
             if (amp.name != null || amp.title != null) {
                 if (igloo.ssr.content_name.equals(amp.name)) {
@@ -62,17 +79,13 @@ public class iglooAmpCompare {
                     processedDataResult.Amp_ContentType = amp.contentType;
                 } else if (igloo.ssr.content_type.equalsIgnoreCase(amp.typeName)) {
                     processedDataResult.Amp_ContentType = amp.typeName;
-                } else if (amp.typeName != null){
-                    processedDataResult.Amp_ContentType = amp.typeName;
-                }
-                else if(amp.contentType != null){
+                } else if (amp.typeName != null && amp.typeName.equals("KEYWORDS")){    
                     processedDataResult.Amp_ContentType = amp.contentType;
                 }
             }
 
-            if (((igloo.ssr.content_name.equals(amp.name) || igloo.ssr.content_name.equals(amp.title))
-                    && (igloo.ssr.content_id.equals(amp.contentId) || igloo.ssr.content_id.equals(amp.id)))
-                    && (igloo.ssr.content_type.equals(amp.contentType)
+            if (((igloo.ssr.content_id.equals(amp.contentId) || igloo.ssr.content_id.equals(amp.id)))
+                    && (igloo.ssr.content_type.equalsIgnoreCase(amp.contentType)
                             || igloo.ssr.content_type.equalsIgnoreCase(amp.typeName))) {
 
                 processedDataResult.SSR_Result = "PASS";
@@ -85,11 +98,8 @@ public class iglooAmpCompare {
              * "content_id & id / contentId", "content_Type & typename"
              */
 
-            if (((igloo.qsr.content_name.equals(amp.name) || igloo.qsr.content_name.equals(amp.title)
-                    || igloo.qsr.content_name.equals(amp.description))
-                    && (igloo.qsr.content_id.equals(amp.contentId) || igloo.qsr.content_id.equals(amp.id)))
-                    && (igloo.qsr.content_type.equals(amp.contentType)
-                            || igloo.qsr.content_type.equalsIgnoreCase(amp.typeName))) {
+            if ((igloo.qsr.content_id.equals(amp.contentId) || igloo.qsr.content_id.equals(amp.id))
+                    && (igloo.qsr.content_type.equalsIgnoreCase(amp.contentType)|| igloo.ssr.content_type.equalsIgnoreCase(amp.typeName))) {
 
                 processedDataResult.QSR_Result = "PASS";
             } else {
