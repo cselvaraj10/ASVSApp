@@ -24,34 +24,43 @@ public class parseIglooData {
 
         try {
 
-            Path pathToInputFile = Paths.get("app/src/main/resources/InputData/11072022.json");
+            // Path pathToInputFile =
+            // Paths.get("app/src/main/resources/InputData/11072022.json");
+            Path pathToInputFile = Paths.get("app/src/main/resources/InputData/000.json");
+
             reader = Files.newBufferedReader(pathToInputFile, StandardCharsets.UTF_8);
 
             String line;
 
-            //csvWriteResults.csvWriterOpenAgain();;
-            
+            csvWriteResults.csvWriterOpenAgain();
+            ;
+
             while ((line = reader.readLine()) != null) {
                 try {
                     StringBuilder jsonStr = new StringBuilder(line);
 
-                    replaceAll(jsonStr, "\\\"", "\"");
+                    allPossibleFormatting(jsonStr);
 
-                    replaceAll(jsonStr, " \"", " ");
-                    replaceAll(jsonStr, "\" ", " ");
+                    // replaceAll(jsonStr, "\\\"", "\"");
 
-                    replaceAll(jsonStr, "\"[", "{");
+                    // replaceAll(jsonStr, " \"", " ");
+                    // replaceAll(jsonStr, "\" ", " ");
 
-                    replaceAll(jsonStr, "]\",", "||\","); 
+                    // replaceAll(jsonStr, "\"[", "{");
 
-                    replaceAll(jsonStr, "]\"", "}"); 
+                    // replaceAll(jsonStr, "]\",\"qsr\"", "},\"qsr\"");
+
+                    // replaceAll(jsonStr, "\": ", " ");
+
+                    // replaceAll(jsonStr, " :\"", " ");
+
+                    // replaceAll(jsonStr, "]\"}", "}}");
 
                     jsonFormattedString = jsonStr.toString();
 
                     try {
                         iglooGoldenData iglooData = new Gson().fromJson(jsonFormattedString, iglooGoldenData.class);
-                    }
-                    catch (Exception err) {
+                    } catch (Exception err) {
                         System.out.println(err);
                     }
 
@@ -61,7 +70,6 @@ public class parseIglooData {
 
                     // Function call passing 2 objects for compare
                     iglooAmpCompare.compareData(iglooData, iglooDataSearchTerm);
-
 
                 } catch (Exception err) {
                     System.out.print(jsonFormattedString);
@@ -91,6 +99,23 @@ public class parseIglooData {
             index += to.length(); // Move to the end of the replacement
             index = builder.indexOf(from, index);
         }
+    }
+
+    public static void allPossibleFormatting(StringBuilder jsonStr) {
+        replaceAll(jsonStr, "\\\"", "\"");
+
+        replaceAll(jsonStr, " \"", " ");
+        replaceAll(jsonStr, "\" ", " ");
+
+        replaceAll(jsonStr, "\"[", "{");
+
+        replaceAll(jsonStr, "]\",\"qsr\"", "},\"qsr\"");
+
+        replaceAll(jsonStr, "\": ", " ");
+
+        replaceAll(jsonStr, " :\"", " ");
+
+        replaceAll(jsonStr, "]\"}", "}}");
     }
 
 }

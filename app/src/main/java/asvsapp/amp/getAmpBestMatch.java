@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 
 public class getAmpBestMatch {
     public static Object iglooData;
-    // public static Object ampBMData;
     public static ampBestMatchdata ampBMData = new ampBestMatchdata();
 
     public static ampBestMatchdata getJsonBestMatch(String search_term) {
