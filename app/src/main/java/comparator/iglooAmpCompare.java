@@ -29,41 +29,49 @@ public class iglooAmpCompare {
             processedDataResult.Igloo_QSRContentId = igloo.qsr.content_id;
             processedDataResult.Igloo_QSRContentType = igloo.qsr.content_type;
 
-            if (amp.name != null || amp.title != null || amp.description != null) {
+            
+            if (amp.name != null || amp.title != null) {
                 if (igloo.ssr.content_name.equals(amp.name)) {
                     processedDataResult.Amp_ContentName = amp.name;
                 } else if (igloo.ssr.content_name.equals(amp.title)) {
                     processedDataResult.Amp_ContentName = amp.title;
-                } else if (igloo.ssr.content_name.equals(amp.description)) {
-                    processedDataResult.Amp_ContentName = amp.description;
-                } else {
-                    processedDataResult.Amp_ContentName = "Not Valid!";
+                } else if (amp.name != null){
+                    processedDataResult.Amp_ContentName = amp.name;
+                }
+                else if(amp.title != null){
+                    processedDataResult.Amp_ContentName = amp.title;
                 }
             }
+
 
             if (amp.contentId != null || amp.id != null) {
                 if (igloo.ssr.content_id.equals(amp.contentId)) {
                     processedDataResult.Amp_ContentId = amp.contentId;
-                } else if (igloo.ssr.content_id == amp.id) {
+                } else if (igloo.ssr.content_id.equals(amp.id)) {
                     processedDataResult.Amp_ContentId = amp.id;
-                } else {
-                    processedDataResult.Amp_ContentId = null;
+                } else if (amp.contentId != null){
+                    processedDataResult.Amp_ContentId = amp.contentId;
+                }
+                else if(amp.id != null){
+                    processedDataResult.Amp_ContentId = amp.id;
                 }
             }
 
             if (amp.contentType != null || amp.typeName != null) {
-                if (igloo.ssr.content_type.equals(amp.contentType)) {
+                if (igloo.ssr.content_type.equalsIgnoreCase(amp.contentType)) {
                     processedDataResult.Amp_ContentType = amp.contentType;
                 } else if (igloo.ssr.content_type.equalsIgnoreCase(amp.typeName)) {
                     processedDataResult.Amp_ContentType = amp.typeName;
-                } else {
-                    processedDataResult.Amp_ContentType = "Not Valid!";
+                } else if (amp.typeName != null){
+                    processedDataResult.Amp_ContentType = amp.typeName;
+                }
+                else if(amp.contentType != null){
+                    processedDataResult.Amp_ContentType = amp.contentType;
                 }
             }
 
-            if (((igloo.ssr.content_name.equals(amp.name) || igloo.ssr.content_name.equals(amp.title)
-                    || igloo.ssr.content_name.equals(amp.description))
-                    && (igloo.ssr.content_id.equals(amp.contentId) || igloo.ssr.content_id == amp.id))
+            if (((igloo.ssr.content_name.equals(amp.name) || igloo.ssr.content_name.equals(amp.title))
+                    && (igloo.ssr.content_id.equals(amp.contentId) || igloo.ssr.content_id.equals(amp.id)))
                     && (igloo.ssr.content_type.equals(amp.contentType)
                             || igloo.ssr.content_type.equalsIgnoreCase(amp.typeName))) {
 
@@ -79,7 +87,7 @@ public class iglooAmpCompare {
 
             if (((igloo.qsr.content_name.equals(amp.name) || igloo.qsr.content_name.equals(amp.title)
                     || igloo.qsr.content_name.equals(amp.description))
-                    && (igloo.qsr.content_id.equals(amp.contentId) || igloo.qsr.content_id == amp.id))
+                    && (igloo.qsr.content_id.equals(amp.contentId) || igloo.qsr.content_id.equals(amp.id)))
                     && (igloo.qsr.content_type.equals(amp.contentType)
                             || igloo.qsr.content_type.equalsIgnoreCase(amp.typeName))) {
 
