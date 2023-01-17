@@ -12,7 +12,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch: 
 
 permissions:
   id-token: write
@@ -45,9 +44,6 @@ jobs:
         role-to-assume: arn:aws:iam::219619990026:role/ihr-algolia-validation
         aws-region: us-east-1
         
-    - name: Download Igloo Json Data File from S3 bucket
-      run: |
-        aws s3 cp s3://ihr-de-stg-prod/search_golden_dataset/top_search_terms/dt=2022-11-14/000.json app/src/main/resources/InputData/ 
       
               
 #     - name: Download Igloo Json Data File from S3 bucket1
